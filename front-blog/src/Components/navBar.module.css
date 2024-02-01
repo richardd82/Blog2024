@@ -1,0 +1,18 @@
+.header{
+    --tw-border-opacity: 1;
+    border: 1px solid rgb(236 72 153 / var(--tw-border-opacity));
+    border-radius: 4px;
+    padding: 24px;
+    box-shadow: rgb(236 72 153 / var(--tw-border-opacity)) 0px 0px 10px 0px;        
+    /* border-color: rgb(236 72 153 / var(--tw-border-opacity)); */
+}
+.navigation {
+    display: flex;
+    list-style: none;
+    gap: 32px;
+    justify-content: space-evenly;
+}
+.navigation a:hover{
+    color: #f0f0f0;
+    text-decoration: underline;
+}
