@@ -7,14 +7,23 @@ const { BlogData } = require("../db.js");
 router.get("/byTitle", async (req, res) => {
   try {
     const { title } = req.query;
-    const post = await BlogData.findAll({
+    let post = [];
+    post = await BlogData.findAll({
       where: {
         title: {
           [Op.like]: `%${title}%`,
         },
       },
     });
-    res.json(post);
+    post = post.map((post) => {
+      return {
+        id: post.id,
+        title: post.title,
+        author: post.author,
+        content: post.content.length > 70 ? post.content.slice(0, 70) + "..." : post.content
+    }
+    });
+    res.status(200).json(post);
   } catch (error) {
     console.error("AQUI EL ERROR ==>", error);
     res.status(500).json({ message: "Error al obtener el Post" });
@@ -23,14 +32,23 @@ router.get("/byTitle", async (req, res) => {
 router.get("/byAuthor", async (req, res) => {
   try {
     const { author } = req.query;
-    const post = await BlogData.findAll({
+    let post = [];
+    post = await BlogData.findAll({
       where: {
         author: {
           [Op.like]: `%${author}%`,
         },
       },
     });
-    res.json(post);
+    post = post.map((post) => {
+      return {
+        id: post.id,
+        title: post.title,
+        author: post.author,
+        content: post.content.length > 70 ? post.content.slice(0, 70) + "..." : post.content
+    }
+    });
+    res.status(200).json(post);    
   } catch (error) {
     console.error("AQUI EL ERROR ==>", error);
     res.status(500).json({ message: "Error al obtener el Post" });
@@ -39,14 +57,23 @@ router.get("/byAuthor", async (req, res) => {
 router.get("/byContent", async (req, res) => {
   try {
     const { content } = req.query;
-    const post = await BlogData.findAll({
+    let post =[]
+    post = await BlogData.findAll({
       where: {
         content: {
           [Op.like]: `%${content}%`,
         },
       },
     });
-    res.json(post);
+    post = post.map((post) => {
+      return {
+        id: post.id,
+        title: post.title,
+        author: post.author,
+        content: post.content.length > 70 ? post.content.slice(0, 70) + "..." : post.content
+    }
+    });
+    res.status(200).json(post);
   } catch (error) {
     console.error("AQUI EL ERROR ==>", error);
     res.status(500).json({ message: "Error al obtener el Post" });

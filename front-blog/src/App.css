@@ -40,3 +40,6 @@
 .read-the-docs {
   color: #888;
 }
+select option{
+  background-color: transparent !important;
+ }

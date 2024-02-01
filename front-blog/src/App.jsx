@@ -5,6 +5,7 @@ import NewPost from "./Pages/NewPost";
 import PostDetails from "./Pages/PostDetails";
 import NavBar from "./Components/NavBar";
 import { Toaster } from "react-hot-toast";
+import Filters from "./Components/Filters";
 
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
     <>
     <Toaster />
     <NavBar />
+    <Filters />
       <Routes>
         <Route index element={ <Home /> } />
         <Route path='/newPost' exact element={ <NewPost />} />

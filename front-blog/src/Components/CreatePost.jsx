@@ -1,23 +1,26 @@
-import React from 'react'
 import { useForm } from 'react-hook-form';
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useStore from "../Zustand/Store";
+import { useNavigate  } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 
 const CreatePost = () => {
   const params = useParams()
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm()
+  const { register, handleSubmit, formState: { errors } } = useForm()
   const { createNewPost, updatePost } = useStore()
+  const navigate = useNavigate();
 
 
   const onSubmit = handleSubmit((data) => {
     console.log(data, " <=== data")
     if (params.id) {
         updatePost(data)
-        toast.success('Post updated successfully')
+        toast.success('Post updated successfully');
+        navigate("/");
       } else {
-        createNewPost(data)
-        toast.success('Post created successfully')
+        createNewPost(data)        
+        toast.success('Post created successfully');
+        navigate("/");
       }
   })
   const deleteTask = () => {
@@ -29,7 +32,7 @@ const CreatePost = () => {
         <header className='flex justify-between'>
           <h1 className='font-bold text-3xl m-auto'>{!params.id ? 'Create new Post' : 'Edit Post'}</h1>
           {params.id &&
-            <button type='button' onClick={(e) => deleteTask(params.id)} className='bg-red-700 hover:bg-red-600 px-3 py-1 items-center w-24 h-11 rounded-lg text-center '>Delete</button>
+            <button type='button' onClick={() => deleteTask(params.id)} className='bg-red-700 hover:bg-red-600 px-3 py-1 items-center w-24 h-11 rounded-lg text-center '>Delete</button>
           }
         </header>
         <input placeholder="Write your name" {...register('author', { required: true })} className='bg-gray-800 border-2 rounded-lg mt-10 py-4 px-4  focus:outline-none w-full' />

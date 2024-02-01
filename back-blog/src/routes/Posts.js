@@ -6,7 +6,9 @@ const { BlogData } = require("../db.js");
 router.get("/allPosts", async(req, res) => {
     try {        
         let allPosts = [];
-        allPosts = await BlogData.findAll();        
+        allPosts = await BlogData.findAll({
+          order: [['createdAt', 'DESC']],
+        });        
 
         allPosts = allPosts.map((post) => {
             return {

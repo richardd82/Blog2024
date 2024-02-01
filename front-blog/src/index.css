@@ -2,6 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+input{
+  border-color: pink;
+  color: rgb(216 180 254);
+}
+input::placeholder{
+  color: rgb(216 180 254);
+}
+input:focus{
+  border-color: pink !important;
+  color: rgb(216 180 254);
+}
+
+select option{
+ background-color: transparent !important;
+}
 
 @media (prefers-color-scheme: light) {
   :root {

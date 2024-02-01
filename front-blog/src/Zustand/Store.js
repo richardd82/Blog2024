@@ -42,24 +42,53 @@ const useStore = create((set) => ({
       console.error('Error creating new post:', error);
     }
   },
-  updatePost: async (postId, updatedPost) => {
+  // updatePost: async (postId, updatedPost) => {
+  //   try {
+  //     const response = await axios.put(`/updatePost/${postId}`, updatedPost, {
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //     });
+  //     const updatedPost = response.data;
+  //     set((state) => ({
+  //       posts: state.posts.map((post) => {
+  //         if (post.id === postId) {
+  //           return updatedPost;
+  //         }
+  //         return post;
+  //       }),
+  //     }));
+  //   } catch (error) {
+  //     console.error('Error updating post:', error);
+  //   }
+  // },
+
+  filterPostsByTitle: async (searchTitle) => {
     try {
-      const response = await axios.put(`/updatePost/${postId}`, updatedPost, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      const updatedPost = response.data;
-      set((state) => ({
-        posts: state.posts.map((post) => {
-          if (post.id === postId) {
-            return updatedPost;
-          }
-          return post;
-        }),
-      }));
+      const response = await fetch(`http://localhost:3000/filters/byTitle?title=${searchTitle}`);
+      const filteredPosts = await response.json();
+      set({ posts: filteredPosts });
     } catch (error) {
-      console.error('Error updating post:', error);
+      console.error('Error filtering posts by title:', error);
+    }
+  },
+
+  filterPostsByAuthor: async (searchTitle) => {
+    try {
+      const response = await fetch(`http://localhost:3000/filters/byAuthor?author=${searchTitle}`);
+      const filteredPosts = await response.json();
+      set({ posts: filteredPosts });
+    } catch (error) {
+      console.error('Error filtering posts by author:', error);
+    }
+  },
+  filterPostsByContent: async (searchTitle) => {
+    try {
+      const response = await fetch(`http://localhost:3000/filters/byContent?content=${searchTitle}`);
+      const filteredPosts = await response.json();
+      set({ posts: filteredPosts });
+    } catch (error) {
+      console.error('Error filtering posts by content:', error);
     }
   },
 }));
