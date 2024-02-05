@@ -1,5 +1,5 @@
 const PostDetailed = (post) => {
- console.log(post, " <=== post")
+//  console.log(post, " <=== post")
   if (!post) {
     return <div>Cargando...</div>;
   }
