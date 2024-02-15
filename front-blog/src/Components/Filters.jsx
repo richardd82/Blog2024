@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from "react";
 import useStore from "../Zustand/Store";
-import useStoreFilters from "../Zustand/StoreFilters";
+
 // import {useLocation} from "react-router-dom";
 
 const Filters = () => {
@@ -9,9 +9,9 @@ const Filters = () => {
     filterPostsByAuthor,
     filterPostsByContent,
     getAllPosts,
+    filter, search, results, setFilter, setSearch, setResults
   } = useStore();
-  const { filter, search, results, setFilter, setSearch, setResults } =
-    useStoreFilters();
+  
   // const location = useLocation();
   // const navigate = useNavigate();
   // console.log("PostsList Store===>", filter, search);
@@ -31,10 +31,23 @@ const Filters = () => {
     setSearch(newSearch);
     handleFilter(filter, newSearch);
   };
+  const arraysAreEqual = (arr1, arr2) => {
+    if (arr1.length !== arr2.length) {
+      return false;
+    }
+    
+    for (let i = 0; i < arr1.length; i++) {
+      if (arr1[i] !== arr2[i]) {
+        return false;
+      }
+    }
+    
+    return true;
+  }
 
   const handleFilter = useCallback(
     (f, s) => {
-      // console.log(f, s);
+      console.log(f, s);
 
       let newResults = [];
 
@@ -47,18 +60,12 @@ const Filters = () => {
         : (newResults = getAllPosts());
       // filter==='byTitle' ? setTypeFilter('title') : filter==='byAuthor' ? setTypeFilter('author') : filter==='byContent' ?  setTypeFilter('content') : setTypeFilter('');
 
-      if (newResults?.length !== results?.length) {
+      if (!arraysAreEqual(newResults, results)) {
         setResults(newResults);
       }
     },
     [
-      filter,
-      filterPostsByTitle,
-      filterPostsByAuthor,
-      filterPostsByContent,
-      getAllPosts,
-      results,
-      setResults,
+      results, setResults, filterPostsByTitle, filterPostsByAuthor, filterPostsByContent, getAllPosts
     ]
   );
 
@@ -67,12 +74,19 @@ const Filters = () => {
         const newFilter = filter || "";
         const newSearch = search || "";
 
-        setFilter(newFilter);
-        setSearch(newSearch);
+        // setFilter(newFilter);
+        // setSearch(newSearch);
 
         handleFilter(newFilter, newSearch);
 
-  }, [filter, search, setResults, filterPostsByAuthor, filterPostsByContent, filterPostsByTitle, getAllPosts, handleFilter, setFilter, setSearch]);
+        // return () => {
+        //   // Realizar cualquier limpieza necesaria, como restablecer los resultados
+        //   // Esto podría ser útil si necesitas limpiar el estado o cancelar solicitudes pendientes
+        //   setResults([]);
+        // };
+
+
+  }, [filter, search, setResults, handleFilter]);
 
   return (
     <section className='mt-6'>

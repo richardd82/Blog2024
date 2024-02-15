@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import styles from './navBar.module.css';
-import useStoreFilters from '../Zustand/StoreFilters';
+import useStore from '../Zustand/Store';
 const links = [
     {
       label: 'Home',
@@ -13,7 +13,7 @@ const links = [
   ];
 
 const NavBar = () => {
-  const { setFilter, setSearch, SetResults } = useStoreFilters();
+  const { setFilter, setSearch, SetResults } = useStore();
 
   const handleClick = () => {
     setFilter('');

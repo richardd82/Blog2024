@@ -17,6 +17,7 @@ function App() {
       <Routes>
         <Route index element={ <Home /> } />
         <Route path='/newPost' exact element={ <NewPost />} />
+        <Route path='/newPost/:id' exact element={ <NewPost />} />
         <Route path='/post/:id' element={ <PostDetails /> } />
       </Routes>
     </>
